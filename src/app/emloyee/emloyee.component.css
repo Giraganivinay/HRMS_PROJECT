@@ -1,0 +1,61 @@
+
+  
+.text-center {
+ 
+  color: white;
+  text-align: center;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: xxx-large;
+}
+
+.row.justify-content-center {
+  justify-content: center;
+}
+
+.task-card {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+  height: 230px;
+  width: 520;
+  margin: 20px;
+}
+
+.task-card:hover {
+  transform: scale(1.02);
+}
+
+.card-title {
+  font-weight: bold;
+  color: #333333;
+}
+
+.card-text {
+  color: #333333;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: #0069d9;
+  border-color: #0062cc;
+}
+
+.btn{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+body{
+     background-color: #f1f1f1;
+}
+
+

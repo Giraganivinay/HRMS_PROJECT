@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="container">
+    <h2 class="text-center text-success">Employee Dashbord</h2>
+    <br>
+    <div class="row">
+      <div class="col-md-4" *ngFor="let task of tasks; let idx = index">
+        <div class="card task-card">
+          <div class="card-body">
+            <h5 class="card-title">{{ task.title }}</h5>
+            <p class="card-text">{{ task.description }}</p>
+            <button (click)="setId(idx)" routerLink="/task_employee" class="btn btn-success">Go to Task</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+  </div>
+</body>
+
+</html>

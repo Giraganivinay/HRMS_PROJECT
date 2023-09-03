@@ -1,0 +1,500 @@
+<div class="container d-flex align-items-center justify-content-center">
+    <div class="cmp top" *ngIf="divId===0">
+        <form class="task-frame" (ngSubmit)="getEmployeesJoinedYear()" #form="ngForm">
+            <h2 class="text-center">Employees List Joined After Year</h2>
+            <div class="form-group">
+                <label for="years">Year:</label>
+                <input type="number" id="year" class="form-control" required [(ngModel)]="year" name="numberOfYears" #yearField="ngModel">
+                <p class="error-message" *ngIf="yearField.invalid && yearField.touched">Please provide a
+                    valid year.</p>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success" [disabled]="form.invalid">Get Employees</button>
+            </div>
+        </form>
+        <table class="table mt-3" *ngIf="employeesJoinedYear.length > 0">
+            <thead>
+                <tr>
+                    <th>Employee No</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Birth Date</th>
+                    <th>Gender</th>
+                    <th>Hire Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let employee of employeesJoinedYear">
+                    <td>{{ employee.empNo }}</td>
+                    <td>{{ employee.firstName }}</td>
+                    <td>{{ employee.lastName }}</td>
+                    <td>{{ employee.birthDate }}</td>
+                    <td>{{ employee.gender }}</td>
+                    <td>{{ employee.hireDate }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- ----------------------------- -->
+
+    <div class="cmp top">
+        <div class="task-frame" *ngIf="divId===1">
+            <h2>Count of Employees Joined in Last Given Number of Years</h2>
+            <form id="count-employees-form" (ngSubmit)="getEmployeeCountAfterYear()" #form="ngForm">
+                <div class="form-group">
+                    <label for="noOfYears">Number of Years:</label>
+                    <input type="number" id="noOfYears" class="form-control" required [(ngModel)]="noOfYears"
+                        name="noOfYears" #yearField="ngModel">
+                    <p class="error-message" *ngIf="yearField.invalid && yearField.touched">Please provide a
+                        no of year.</p>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success" [disabled]="form.invalid">Get Employee Count</button>
+                </div>
+            </form>
+            <br>
+            <p *ngIf="employeeCount !== null" class="result">Total Employees Joined in the Last {{ noOfYears }}
+                Years: {{ employeeCount }}</p>
+        </div>
+    </div>
+
+    <!-- ------------------------------------------------ -->
+
+    <div class="cmp top" *ngIf="divId===2">
+        <div class="task-frame " >
+            <h2>Employees Joined in Last Given Number Years</h2>
+            <form id="employee-form" (ngSubmit)="getEmployeeListAfterNumberOfYear()" #form="ngForm">
+                <div class="form-group">
+                    <label for="numberOfYears">Number of Years:</label>
+                    <input type="number" id="numberOfYears" class="form-control" required [(ngModel)]="numberOfYears"
+                        name="numberOfYears" #yearField="ngModel">
+                    <p class="error-message" *ngIf="yearField.invalid && yearField.touched">Please provide a
+                        no of year.</p>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success" [disabled]="form.invalid">Get Employees</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- ------------------------------------------------ -->
+
+        <div>
+            <table class="table mt-3" *ngIf="employeesJoinedLastGivenYears.length > 0">
+                <thead>
+                    <tr>
+                        <th>Emp No</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Birth Date</th>
+                        <th>Hire Date</th>
+                        <th>Gender</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let employee of employeesJoinedLastGivenYears">
+                        <td>{{ employee.empNo }}</td>
+                        <td>{{ employee.firstName }}</td>
+                        <td>{{ employee.lastName }}</td>
+                        <td>{{ employee.birthDate }}</td>
+                        <td>{{ employee.hireDate }}</td>
+                        <td>{{ employee.gender }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- --------------------------------- -->
+
+    <div class="task-frame top" *ngIf="divId===3">
+        <h2>Count of Employees Joined After Given Year</h2>
+        <form id="employee-count-form" (ngSubmit)="getEmployeeCount()" #form="ngForm">
+            <div class="form-group">
+                <label for="year">Year:</label>
+                <input type="number" id="year" class="form-control" required [(ngModel)]="selectedYear" name="year" #yearField="ngModel">
+                <p class="error-message" *ngIf="yearField.invalid && yearField.touched">Please provide a
+                    valid year.</p>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success" [disabled]="form.invalid">Get Employee Count</button>
+            </div>
+        </form>
+        <div *ngIf="employeList !== null" class="result">
+            <p>Total Employees Joined After {{ selectedYear }}: {{ employeList }}</p>
+        </div>
+    </div>
+
+    <!-- ------------------------------------------ -->
+
+
+    <div class="task-frame top" *ngIf="divId===4">
+
+            <form class="task-frame" id="assign-department-form" (ngSubmit)="assignDepartment()" #form="ngForm">
+
+                <h2>Assign Department to Employee</h2>
+
+                <div class="form-group">
+
+                    <label for="empNo">Employee Number:</label>
+
+                    <input type="number" id="empNo" class="form-control" required [(ngModel)]="empNo" name="empNo"
+                        #empNoField="ngModel">
+
+                    <p class="error-message" *ngIf="empNoField.invalid && empNoField.touched">Please provide a valid
+                        employee number.</p>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="deptNo">Department Number:</label>
+
+                    <input type="text" id="deptNo" class="form-control" required [(ngModel)]="deptNo" name="deptNo"
+                        #deptNoField="ngModel">
+
+                    <p class="error-message" *ngIf="deptNoField.invalid && deptNoField.touched">Please provide a
+                        department number.</p>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="fromDate">From Date:</label>
+
+                    <input type="date" id="fromDate" class="form-control" required [(ngModel)]="fromDate"
+                        name="fromDate" #fromDateField="ngModel">
+
+                    <p class="error-message" *ngIf="fromDateField.invalid && fromDateField.touched">Please provide a
+                        valid from date.</p>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="toDate">To Date:</label>
+
+                    <input type="date" id="toDate" class="form-control" required [(ngModel)]="toDate" name="toDate"
+                        #toDateField="ngModel">
+
+                    <p class="error-message" *ngIf="toDateField.invalid && toDateField.touched">Please provide a valid
+                        to date.</p>
+
+                </div>
+
+                <div class="form-group">
+
+                    <button type="submit" class="btn btn-success" [disabled]="form.invalid">Assign Department</button>
+
+                </div>
+
+                <div *ngIf="serverSuccessMessage" class="alert alert-success p-2 border border-dark text-center" role="alert">
+                    <strong>{{serverSuccessMessage}}</strong>
+                </div>
+                <div *ngIf="serverErrorMessage" class="alert alert-danger p-2 border border-dark" role="alert">
+                    <strong>{{serverErrorMessage}}</strong>
+                </div>
+
+            </form>
+
+        </div>
+
+    <!-- ------------------------------------- -->
+
+    <div class="task-frame top" *ngIf="divId===5">
+        <form id="assign-department-form" (ngSubmit)="assignDepartmentManager()" #form="ngForm">
+            <h2>Assign Manager to Department</h2>
+            <div class="form-group">
+                <label for="empNo">Employee Number:</label>
+                <input type="number" id="empNo" class="form-control" required [(ngModel)]="empNo" name="empNo" #empNoField="ngModel">
+                <p class="error-message" *ngIf="empNoField.invalid && empNoField.touched">Please provide a valid
+                    employee number.</p>
+            </div>
+            <div class="form-group">
+                <label for="deptNo">Department Number:</label>
+                <input type="text" id="deptNo" class="form-control" required [(ngModel)]="deptNo" name="deptNo" #deptNoField="ngModel">
+                <p class="error-message" *ngIf="deptNoField.invalid && deptNoField.touched">Please provide a
+                    department number.</p>
+            </div>
+            <div class="form-group">
+                <label for="fromDate">From Date:</label>
+                <input type="date" id="fromDate" class="form-control" required [(ngModel)]="fromDate" name="fromDate" #fromDateField="ngModel">
+                <p class="error-message" *ngIf="fromDateField.invalid && fromDateField.touched">Please provide a
+                    valid from date.</p>
+            </div>
+            <div class="form-group">
+                <label for="toDate">To Date:</label>
+                <input type="date" id="toDate" class="form-control" required [(ngModel)]="toDate" name="toDate" #toDateField="ngModel">
+                <p class="error-message" *ngIf="toDateField.invalid && toDateField.touched">Please provide a valid
+                    to date.</p>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success" [disabled]="form.invalid">Assign Department</button>
+            </div>
+            <div *ngIf="serverSuccessMessage" class="alert alert-success p-2 border border-dark text-center" role="alert">
+                <strong>{{serverSuccessMessage}}</strong>
+            </div>
+            <div *ngIf="serverErrorMessage" class="alert alert-danger p-2 border border-dark" role="alert">
+                <strong>{{serverErrorMessage}}</strong>
+            </div>
+        </form>
+    </div>
+
+    <!-- ------------------------------------- -->
+
+    <div class="task-frame top" *ngIf="divId===6">
+        <h2>Assign Employee Designation</h2>
+        <form id="assign-designation-form" (ngSubmit)="assignDesignation()" #form="ngForm">
+            <div class="form-group">
+                <label for="empNo">Employee ID:</label>
+                <input type="text" id="empNo" class="form-control" required [(ngModel)]="empNo" name="empNo" #empNoField="ngModel">
+                <p class="error-message" *ngIf="empNoField.invalid && empNoField.touched">Please provide a valid
+                    employee number.</p>
+            </div>
+            <div class="form-group">
+                <label for="title">Designation:</label><br>
+                <select name="title" id="titles" [(ngModel)]="title"  #titleField="ngModel" required>
+                    <option value="IT">IT</option>
+                    <option value="Senior Engineer">Senior Engineer</option>
+                    <option value="Staff">Staff</option>
+                    <option value="Engineer">Engineer</option>
+                    <option value="Senior Staff">Senior Staff</option>
+                    <option value="Assistant Engineer">Assistant Engineer</option>
+                    <option value="Technique Leader">Technique Leader</option>
+                    <option value="Manager">Manager</option>
+                </select>
+                <!-- <input type="text" id="title" class="form-control" required [(ngModel)]="title" name="title" #titleField="ngModel"> -->
+                <p class="error-message" *ngIf="titleField.invalid && titleField.touched">Please provide a valid
+                    designation.</p>
+            </div>
+            <div class="form-group">
+                <label for="fromDate">Start Date:</label>
+                <input type="date" id="fromDate" class="form-control" required [(ngModel)]="fromDate" name="fromDate" #fromDateField="ngModel">
+                <p class="error-message" *ngIf="fromDateField.invalid && fromDateField.touched">Please provide a
+                    valid from date.</p>
+            </div>
+            <div class="form-group">
+                <label for="toDate">End Date:</label>
+                <input type="date" id="toDate" class="form-control" required [(ngModel)]="toDate" name="toDate" #toDateField="ngModel">
+                <p class="error-message" *ngIf="toDateField.invalid && toDateField.touched">Please provide a valid
+                    to date.</p>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success" [disabled]="form.invalid">Assign Designation</button>
+            </div>
+            <div *ngIf="serverSuccessMessage" class="alert alert-success p-2 border border-dark text-center" role="alert">
+                <strong>{{serverSuccessMessage}}</strong>
+            </div>
+            <div *ngIf="serverErrorMessage" class="alert alert-danger p-2 border border-dark" role="alert">
+                <strong>{{serverErrorMessage}}</strong>
+            </div>
+        </form>
+    </div>
+
+    <!-- ------------------------------------------ -->
+
+    <div class="task-frame top" *ngIf="divId===7">
+        <form (ngSubmit)="addDepartment()" #form="ngForm">
+            <h2>Add New Department</h2>
+            <div class="form-group">
+                <label for="deptName">Department Name:</label>
+                <input type="text" id="deptName" class="form-control" required [(ngModel)]="department.deptName"
+                    name="deptName" #deptNameField="ngModel">
+                <p class="error-message" *ngIf="deptNameField.invalid && deptNameField.touched">Please provide a valid
+                    Department Name.</p>
+            </div>
+            <button type="submit" class="btn btn-success mb-3" [disabled]="form.invalid">Add Department</button>
+            <div *ngIf="serverSuccessMessage" class="alert alert-success p-2 border border-dark text-center" role="alert">
+                <strong>{{serverSuccessMessage}}</strong>
+            </div>
+            <div *ngIf="serverErrorMessage" class="alert alert-danger p-2 border border-dark mt-3" role="alert">
+                <strong>{{serverErrorMessage}}</strong>
+            </div>
+        </form>
+    </div>
+
+    <!-- ------------------------------------------ -->
+
+    <div class="task-frame top" *ngIf="divId===8">
+        <form id="add-employee-form" (ngSubmit)="addEmployee()" #form="ngForm">
+            <h2>Add New Employee</h2>
+            <div class="form-group">
+                <label for="birthDate">Birth Date</label>
+                <input type="date" id="birthDate" class="form-control" required [(ngModel)]="employee.birthDate"
+                    name="birthDate" #birthDateField="ngModel">
+                    <p class="error-message" *ngIf="birthDateField.invalid && birthDateField.touched">Please provide a
+                        valid birth date.</p>
+            </div>
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" class="form-control" required [(ngModel)]="employee.firstName"
+                    name="firstName" #firstNameField="ngModel">
+                <p class="error-message" *ngIf="firstNameField.invalid && firstNameField.touched">Please provide a
+                    first name.</p>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" class="form-control" required [(ngModel)]="employee.lastName"
+                    name="lastName" #lastNameField="ngModel">
+                <p class="error-message" *ngIf="lastNameField.invalid && lastNameField.touched">Please provide a
+                    lastname.</p>
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select id="gender" class="form-control" required [(ngModel)]="employee.gender" name="gender" #genderField="ngModel">
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
+                </select>
+                <p class="error-message" *ngIf="genderField.invalid && genderField.touched">Please provide a
+                    gender.</p>
+            </div>
+
+            <div class="form-group">
+                <label for="hireDate">Hire Date</label>
+                <input type="date" id="hireDate" class="form-control" required [(ngModel)]="employee.hireDate"
+                    name="hireDate" #hireDateField="ngModel">
+                <p class="error-message" *ngIf="hireDateField.invalid && hireDateField.touched">Please provide a
+                    valid hire date.</p>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success" [disabled]="form.invalid">Add Employee</button>
+                <div *ngIf="serverSuccessMessage" class="alert alert-success p-2 border border-dark text-center mt-3" role="alert">
+                    <strong>{{serverSuccessMessage}}</strong>
+                </div>
+                <div *ngIf="serverErrorMessage" class="alert alert-danger p-2 border border-dark mt-3" role="alert">
+                    <strong>{{serverErrorMessage}}</strong>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    <!-- ------------------------------------------------ -->
+
+    <div class="task-frame top" *ngIf="divId===9">
+        <h2>Delete Employee</h2>
+        <form id="delete-employee-form" (ngSubmit)="deleteEmployee()" #form="ngForm">
+            <div class="form-group">
+                <label for="empNo">Employee ID:</label>
+                <input type="text" id="empNo" class="form-control" required [(ngModel)]="empNo" name="empNo" #empNoField="ngModel">
+                <p class="error-message" *ngIf="empNoField.invalid && empNoField.touched">Please provide a valid
+                    employee number.</p>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-danger" [disabled]="form.invalid">Delete</button>
+            </div>
+            <div *ngIf="serverSuccessMessage" class="alert alert-success p-2 border border-dark text-center mt-3" role="alert">
+                <strong>{{serverSuccessMessage}}</strong>
+            </div>
+            <div *ngIf="serverErrorMessage" class="alert alert-danger p-2 border border-dark mt-3" role="alert">
+                <strong>{{serverErrorMessage}}</strong>
+            </div>
+        </form>
+    </div>
+
+    <!-- ------------------------------------------ -->
+
+    <div class="task-frame top" *ngIf="divId===10">
+        <h2>Update Employee Salary</h2>
+        <form (ngSubmit)="updateSalary()" #form="ngForm">
+            <div class="form-group">
+                <label for="employeeId">Employee ID:</label>
+                <input type="text" id="employeeId" class="form-control" required [(ngModel)]="empNo" name="employeeId" #empNoField="ngModel">
+                <p class="error-message" *ngIf="empNoField.invalid && empNoField.touched">Please provide a valid
+                    employee number.</p>
+            </div>
+            <div class="form-group">
+                <label for="rating">Performance Rating: 1 | 2 | 3</label>
+                <input type="number" id="rating" class="form-control" required [(ngModel)]="rating" name="rating" #ratingField="ngModel">
+                <p class="error-message" *ngIf="ratingField.invalid && ratingField.touched">Please provide performance rating.</p>
+            </div>
+            <div class="form-group">
+                <label for="promoted">Promoted:</label><br>
+                <input type="checkbox" id="promoted" [(ngModel)]="promoted" name="promoted">
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-success" [disabled]="form.invalid">Update Salary</button>
+            </div>
+            <div *ngIf="serverSuccessMessage" class="alert alert-success p-2 border border-dark text-center mt-3" role="alert">
+                <strong>{{serverSuccessMessage}}</strong>
+            </div>
+            <div *ngIf="serverErrorMessage" class="alert alert-danger p-2 border border-dark mt-3" role="alert">
+                <strong>{{serverErrorMessage}}</strong>
+            </div>
+        </form>
+    </div>
+
+    <!-- ------------------------------------------------ -->
+
+    <div *ngIf="divId===11" class="top">
+        <form class="task-frame" (ngSubmit)="getEmployeesByExperience(yearsOfExperience)" #form="ngForm">
+            <h2>Employees with Experience Awards</h2>
+            <div class="form-group">
+                <label for="yearsOfExperience">Years of Experience:</label>
+                <input type="number" id="yearsOfExperience" class="form-control" [(ngModel)]="yearsOfExperience" #yearField="ngModel" required>
+                <p class="error-message" *ngIf="yearField.invalid && yearField.touched">Please provide years of experiance.</p>
+            </div>
+            <button type="submit" class="btn btn-success"  [disabled]="form.invalid">Get
+                Employees</button>
+        </form>
+        <h3 class="text-center mt-3">Employees List:</h3>
+        <ul *ngIf="employees.length > 0">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Employee No</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>BirthDate</th>
+                        <th>HireDate</th>
+                        <th>Gender</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let emp of employees">
+                        <td>{{emp.empNo}}</td>
+                        <td>{{emp.firstName}}</td>
+                        <td>{{emp.lastName}}</td>
+                        <td>{{emp.birthDate}}</td>
+                        <td>{{emp.hireDate}}</td>
+                        <td>{{emp.gender}}</td>
+                    </tr>
+                </tbody>
+                
+            </table>
+        </ul>
+    </div>
+
+    <!-- ------------------------------------------------ -->
+
+    <div class="task-frame top" *ngIf="divId===12">
+        <h2>Total Women Employees Count</h2>
+        <form (ngSubmit)="getEmployeesCount()" #form="ngForm">
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select class="form-control" id="gender" name="gender" required [(ngModel)]="gender" #genderField="ngModel">
+                    <option value="m">Male</option>
+                    <option value="f">Female</option>
+                </select>
+                <p class="error-message" *ngIf="genderField.invalid && genderField.touched">Please provide a gender.</p>
+            </div>
+            <button type="submit" class="btn btn-success" [disabled]="form.invalid">Get Count</button>
+        </form>
+        <h2>Total Employees Count: {{ totalWomenEmployeesCount }}</h2>
+    </div>
+
+    <!-- ------------------------------------------ -->
+
+    <div class="task-frame top" *ngIf="divId===13">
+        <h2>Women's Day Invitation</h2>
+        <button class="btn btn-success" (click)="getWomenEmployees()">Retrieve Women Employees</button>
+        <div *ngIf="womenEmployees.length > 0">
+            <h3>List of Women Employees:</h3>
+            <ul>
+                <li *ngFor="let employee of womenEmployees">{{ employee.firstName }} {{ employee.lastName }} -
+                    {{employee.email }}</li>
+            </ul>
+        </div>
+    </div>
+</div>
